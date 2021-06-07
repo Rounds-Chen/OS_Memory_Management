@@ -1,15 +1,16 @@
 <template>
     <el-table
-      v-if="isShow"
       id="result"
       :data="tableData"
       height="500"
-      style="width: 100"
+      width="100"
+      style="font-size:50;font-weight:700;color:red"
       :row-class-name="tableRowClassName"
+      border=true
     >
-      <el-table-column prop="seq" label="Seq no." width="100">
+      <el-table-column prop="seq" label="Seq No" width="100" >
       </el-table-column>
-      <el-table-column prop="ins" label="Ins no." width="100">
+      <el-table-column prop="ins" label="Ins No" width="100">
       </el-table-column>
       <el-table-column prop="page1" label="Page 1" width="100">
       </el-table-column>
@@ -32,14 +33,14 @@
   left: 30%;
 }
 
-t-body .warning-row {
-  background: rgb(247, 183, 65);
-}
+.el-table .warning-row {
+    background: red;
+  }
 </style>
 
 <script>
 export default {
-  props: ["toRun", "algo"],
+  props: [ "algo"],
 
   data() {
     return {
@@ -52,30 +53,36 @@ export default {
       count: 0, //当前缺页数
 
       times: [0, 0, 0, 0], // 记录各内存块中块存在时间
+      loading:false
     };
   },
 
   computed:{
-    isShow:function(){
-      return this.toRun && this.algo!='';
-    }
+    
   },
 
   created(){
-    if(this.algo!=''){
-      console.log(this.algo);
-    this.solve();
-    }
+    
   },
 
   methods: {
     tableRowClassName({ row, rowIndex }) {
       console.log(row);
-      if (this.tableData[rowIndex].name === "王小明") {
+      if (this.tableData[rowIndex].highlight === true) {
         console.log("目标选中", rowIndex);
         return "warning-row";
       }
       return "";
+    },
+    
+    //重置组件数据
+    reset(){
+      this.tableData='';
+      this.pages=[-1,-1,-1,-1];
+      this.m=-1;
+      this.seq=0;
+      this.count=0;
+      this.times=[0,0,0,0];
     },
 
     // 置换算法
@@ -126,7 +133,9 @@ export default {
     },
 
     solve() {
+      this.reset();
       let d = [];
+      let highlight=false; //是否需要高亮
       while (this.seq != 320) {
         let pi = 0;
         this.m = this.NextIns(this.m);
@@ -151,6 +160,7 @@ export default {
 
         //当前指令不在内存中
         if (pi === 4) {
+          highlight=true;
           this.count++; //缺页数增加
           let j=0;
           for (j= 0; j < 4; j++) {
@@ -177,11 +187,15 @@ export default {
 
           fault: fault,
           addr: String(m_page) + " " + String(m_offset),
+
+          highlight:highlight         
         };
         d.push(new_seq);
       }
 
       this.tableData = d;
+
+      this.$emit('finRun',this.count);
       return;
     },
   },
