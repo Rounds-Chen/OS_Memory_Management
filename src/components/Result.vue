@@ -4,38 +4,43 @@
       :data="tableData"
       height="500"
       width="100"
-      style="font-size:50;font-weight:700;color:red"
-      :row-class-name="tableRowClassName"
-      border=true
+      :header-cell-style="tableHeaderStyle"
+      :row-style="tableRowStyle"
     >
-      <el-table-column prop="seq" label="Seq No" width="100" >
+      <el-table-column  align="center" prop="seq" label="Seq No" width="100" >
       </el-table-column>
-      <el-table-column prop="ins" label="Ins No" width="100">
+      <el-table-column align="center" prop="ins" label="Ins No" width="100">
       </el-table-column>
-      <el-table-column prop="page1" label="Page 1" width="100">
+      <el-table-column align="center" prop="page1" label="Page 1" width="100">
       </el-table-column>
-      <el-table-column prop="page2" label="Page 2" width="100">
+      <el-table-column align="center" prop="page2" label="Page 2" width="100">
       </el-table-column>
-      <el-table-column prop="page3" label="Page 3" width="100">
+      <el-table-column align="center" prop="page3" label="Page 3" width="100">
       </el-table-column>
-      <el-table-column prop="page4" label="Page 4" width="100">
+      <el-table-column align="center" prop="page4" label="Page 4" width="100">
       </el-table-column>
-      <el-table-column prop="fault" label="Page Fault" width="180">
+      <el-table-column align="center" prop="detail" label="Page Fault" width="180">
       </el-table-column>
-      <el-table-column prop="addr" label="Addr" width="100"> </el-table-column>
+      <el-table-column align="center" prop="addr" label="Addr" width="100"> </el-table-column>
     </el-table>
 </template>
 
 <style scoped>
 #result {
-  position: absolute;
-  top: 35%;
-  left: 30%;
+  margin-top:20px;
+}
+
+.my-row{
+  background: rgb(94, 92, 15);
+  text-align: center;
+  color:#e4f8d9 !important;
 }
 
 .el-table .warning-row {
-    background: red;
+    background: rgb(211, 210, 163);
   }
+
+
 </style>
 
 <script>
@@ -57,23 +62,32 @@ export default {
     };
   },
 
-  computed:{
-    
-  },
-
-  created(){
-    
-  },
-
   methods: {
-    tableRowClassName({ row, rowIndex }) {
-      console.log(row);
-      if (this.tableData[rowIndex].highlight === true) {
-        console.log("目标选中", rowIndex);
-        return "warning-row";
+    tableRowStyle({rowIndex}){
+      console.log(this.tableData[rowIndex].fault);
+      let normalJson={
+        'background-color':'white',
+         'font-weight':500,
+         'color':'black',
+         'text-align':'center'
+      };
+      let faultJson={
+        'background-color':'#e4f8d9',
+         'font-weight':500,
+         'color':'black',
+
       }
-      return "";
+      
+      if(this.tableData[rowIndex].fault===false){
+        return normalJson;
+      }
+      else{
+        return faultJson;
+      }
     },
+    tableHeaderStyle(){
+      return "text-align:center;background-color:#abebd5;color:rgb(77, 75, 75);font-weight:500;font-size:20 !important;"
+    }, 
     
     //重置组件数据
     reset(){
@@ -102,10 +116,10 @@ export default {
       this.times[index] = maxValue + 1;
       this.pages[index] = m_page;
 
-      let fault =
+      let detail =
         "将页面Page" + String(index + 1) + "的内容置换为" + String(m_page);
 
-      return fault;
+      return detail;
     },
 
     // 获得下一条指令
@@ -135,7 +149,6 @@ export default {
     solve() {
       this.reset();
       let d = [];
-      let highlight=false; //是否需要高亮
       while (this.seq != 320) {
         let pi = 0;
         this.m = this.NextIns(this.m);
@@ -145,11 +158,12 @@ export default {
         let m_offset = this.m % 10;
         console.log("m_page:", m_page, " m_offset:", m_offset);
 
-        let fault = "";
+        let detail = "";
+        let fault=false;
         for (pi = 0; pi < 4; pi++) {
           // 当前指令已在内存块p中
           if (this.pages[pi] === m_page) {
-            fault = "当前指令已在内存块中";
+            detail = "当前指令已在内存块中";
             //若是LRU算法，更新该指令所在内存块的使用times
             if (this.algo === "LRU") {
               this.times[pi] = Math.max(this.times) + 1;
@@ -160,19 +174,19 @@ export default {
 
         //当前指令不在内存中
         if (pi === 4) {
-          highlight=true;
+          fault=true;
           this.count++; //缺页数增加
           let j=0;
           for (j= 0; j < 4; j++) {
             if (this.pages[j] === -1) {
               this.pages[j] = m_page;
-              fault =
+              detail =
                 "当前指令不在内存块中，将其所在块放入内存页" + String(j + 1);
               break;
             }}
              if(j===4) {
               //根据算法移除一个页
-              fault = this.Substitute(m_page);
+              detail = this.Substitute(m_page);
             }
           }
         
@@ -185,10 +199,10 @@ export default {
           page3: this.pages[2],
           page4: this.pages[3],
 
-          fault: fault,
+          detail: detail,
           addr: String(m_page) + " " + String(m_offset),
 
-          highlight:highlight         
+          fault:fault      
         };
         d.push(new_seq);
       }

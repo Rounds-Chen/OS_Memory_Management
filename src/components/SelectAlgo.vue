@@ -16,7 +16,7 @@
 #selectAlgo{
     position: absolute;
     right:40%;
-    top:10%
+    top:200px
 
 }
 </style>

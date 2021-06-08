@@ -38,9 +38,9 @@
   }
 
   .box-card {
-    width: 250px;
+    width: 400px;
     position:absolute;
-    top:60%;
+    top:500px;
     left:4%
   }
 </style>

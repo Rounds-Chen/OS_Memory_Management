@@ -1,72 +1,83 @@
 <template>
   <div id="app">
     <el-container>
-       <el-header>Header</el-header>
-       <el-main>
-    <!--选择算法-->
-    <MySelect ref="child_select" @select="selection = $event"></MySelect>
+      <el-header class="my-header">Header</el-header>
+      <el-main>
+        <!--选择算法-->
+        <MySelect ref="child_select" @select="selection = $event"></MySelect>
 
-    <!--运行和重置-->
-    <el-button
-      round
-      @click="run"
-      style="position: absolute; top: 10%; right: 30%"
-      >RUN</el-button
-    >
-    <el-button
-      round
-      @click="clear"
-      style="position: absolute; top: 10%; right: 20%"
-      >CLEAR</el-button
-    >
+        <!--运行和重置-->
+        <el-button
+          round
+          @click="run"
+          style="position: absolute; top: 200px; right: 30%"
+          >RUN</el-button
+        >
+        <el-button
+          round
+          @click="clear"
+          style="position: absolute; top: 200px; right: 20%"
+          >CLEAR</el-button
+        >
 
-    <!--结果表格-->
-    <Result :algo="selection" @finRun="finRun" ref="child_result"></Result>
+        <el-card
+          class="box-card"
+          style="
+            position: absolute;
+            left: 35%;
+            top: 300px;
+            width: 1000px;
+            height: 600px;
+          "
+        >
+          <!--结果表格-->
+          <Result
+            :algo="selection"
+            @finRun="finRun"
+            ref="child_result"
+          ></Result>
+        </el-card>
 
-    <!--参数卡片-->
-    <Paras />
-    <!--结果卡片-->
-    <Report :fifo_fault="fifo_fault" :lru_fault="lru_fault" />
-    </el-main>
+        <!--参数卡片-->
+        <Paras />
+        <!--结果卡片-->
+        <Report :fifo_fault="fifo_fault" :lru_fault="lru_fault" />
+      </el-main>
+      <el-footer class="my-footer">footer</el-footer>
     </el-container>
   </div>
 </template>
 
 <style>
-.el-container{
-  height:100%;
+.my-header {
+  height: 150px !important;
+    background-color: #99CCCC !important;
+
 }
- .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-  }
-  
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-  }
-  
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-  
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-  
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-  }
+
+.my-footer{
+  height:100px !important;
+    background-color: #99CCCC !important;
+
+}
+
+.el-header,
+.el-footer {
+  background-color: #057020;
+  color: #333;
+  text-align: center;
+}
+
+body> .el-container{
+  margin-bottom: 0;
+}
+
+
+.el-main {
+  background-color:white;
+  color: #333;
+  height: 800px;
+}
 </style>
 
 <script>
