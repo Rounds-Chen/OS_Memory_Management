@@ -50,7 +50,7 @@ export default {
 
   data() {
     return {
-      tableData: "",
+      tableData:[],
       pages: [-1, -1, -1, -1], //当前各页对应逻辑页号
 
       m: -1, //当前指令号
@@ -61,6 +61,15 @@ export default {
       times: [0, 0, 0, 0], // 记录各内存块中块存在时间
       loading:false
     };
+  },
+
+  watch:{
+    seq:function(){
+      if(this.seq==320){
+      this.$emit('finRun',this.count);
+    }
+    }
+
   },
 
   methods: {
@@ -92,7 +101,7 @@ export default {
     
     //重置组件数据
     reset(){
-      this.tableData='';
+      this.tableData=[];
       this.pages=['Empty','Empty','Empty','Empty'];
       this.m=-1;
       this.seq=0;
@@ -147,11 +156,9 @@ export default {
       }
     },
 
-    solve() {
-      this.reset();
-      let d = [];
-      while (this.seq != 320) {
-        let pi = 0;
+    // 执行一次指令
+    solve(){
+      let pi = 0;
         this.m = this.NextIns(this.m);
         console.log("新产生的指令：", this.m);
 
@@ -205,14 +212,17 @@ export default {
 
           fault:fault      
         };
-        d.push(new_seq);
+        this.tableData.push(new_seq);
+    },
+
+    //连续执行320条指令
+    RunAll(){
+      while(this.seq!=320){
+        this.solve();
       }
-
-      this.tableData = d;
-
-      this.$emit('finRun',this.count);
       return;
     },
+
   },
 };
 </script>

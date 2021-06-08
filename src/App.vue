@@ -9,19 +9,29 @@
       >
       <el-main>
         <!--选择算法-->
-        <MySelect ref="child_select" @select="selection = $event"></MySelect>
+        <MySelect :able="oneStep" ref="child_select" @select="selection = $event"></MySelect>
 
         <!--运行和重置-->
+        <!--连续执行-->
         <el-button
           round
           @click="run"
           style="position: absolute; top: 200px; right: 30%"
-          >RUN</el-button
+          >RUN ALL</el-button
         >
+        <!--单步执行-->
+        <el-button
+          round
+          @click="runOne"
+          style="position: absolute; top: 200px; right: 20%"
+          >RUN ONE</el-button
+        >
+
+        <!--重置-->
         <el-button
           round
           @click="clear"
-          style="position: absolute; top: 200px; right: 20%"
+          style="position: absolute; top: 200px; right: 10%"
           >CLEAR</el-button
         >
 
@@ -96,6 +106,7 @@ export default {
     return {
       selection: "", //选择的算法
       isRun: false, //是否正在运行
+      oneStep:false, // 是否单步执行
 
       fifo_fault: 0, //fifo结果缺页数
       lru_fault: 0, //lru结果缺页数
@@ -110,6 +121,7 @@ export default {
 
   methods: {
     clear() {
+      this.oneStep=false;
       this.isRun = false;
       this.selection = "";
       this.fifo_fault = 0;
@@ -117,6 +129,33 @@ export default {
 
       this.$refs.child_select.clear();
       this.$refs.child_result.reset();
+    },
+
+    runOne(){
+      if (this.selection === "") {
+        const h = this.$createElement;
+        this.$message({
+          message: h("p", null, [
+            h(
+              "span",
+              { style: "color: black;font-weight:500;font-size:17px" },
+              "请选择一种算法！ "
+            ),
+          ]),
+          type: "warning",
+          duration: 2300,
+          center: true,
+        });
+      }
+
+      else{
+        if(this.isRun===false){
+        this.oneStep=true;
+        if(this.$refs.child_result.seq!=320){
+          this.$refs.child_result.solve();
+        }
+      }
+      }
     },
 
     run() {
@@ -136,7 +175,7 @@ export default {
         });
       } else if (this.isRun === false) {
         this.isRun = true;
-        this.$refs.child_result.solve();
+        this.$refs.child_result.RunAll();
       }
     },
 
@@ -147,6 +186,22 @@ export default {
       } else {
         this.lru_fault = count;
       }
+        const h = this.$createElement;
+
+      this.$message({
+          message: h("p", null, [
+            h(
+              "span",
+              { style: "color: black;font-weight:500;font-size:17px" },
+              "执行完毕320条指令！ "
+            ),
+          ]),
+          type: "success",
+          duration: 2300,
+          center: true,
+        });
+
+      
     },
   },
 };

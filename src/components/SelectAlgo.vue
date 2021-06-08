@@ -5,7 +5,8 @@
       v-for="item in options"
       :key="item.value"
       :label="item.label"
-      :value="item.label">
+      :value="item.label"
+      :disabled="able">
     </el-option>
   </el-select>
 
@@ -23,6 +24,7 @@
 
 <script>
   export default {
+    props:['able'],
      
     data() {
       return {
@@ -40,7 +42,6 @@
     methods:{
         clear(){
             this.value="";
-
         }
     }
   }
