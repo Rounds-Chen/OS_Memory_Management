@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header class="my-header">Header</el-header>
+      <el-header class="my-header"
+        >
+        <h1 style="font-size: 40px;margin-bottom:0;margin-top:20px">Memory Management</h1>
+        <p style="font-size:20px">Request Page Scheduling</p>
+        </el-header
+      >
       <el-main>
         <!--选择算法-->
         <MySelect ref="child_select" @select="selection = $event"></MySelect>
@@ -43,7 +48,10 @@
         <!--结果卡片-->
         <Report :fifo_fault="fifo_fault" :lru_fault="lru_fault" />
       </el-main>
-      <el-footer class="my-footer">footer</el-footer>
+      <el-footer class="my-footer">
+        <el-link :underline="false" href="https://element.eleme.io" target="_blank">
+        <img style="margin-top:15px" src="./assets/GitHub.png">
+        </el-link></el-footer>
     </el-container>
   </div>
 </template>
@@ -51,14 +59,12 @@
 <style>
 .my-header {
   height: 150px !important;
-    background-color: #99CCCC !important;
-
+  background-color: #99cccc !important;
 }
 
-.my-footer{
-  height:100px !important;
-    background-color: #99CCCC !important;
-
+.my-footer {
+  height: 100px !important;
+  background-color: #99cccc !important;
 }
 
 .el-header,
@@ -68,13 +74,12 @@
   text-align: center;
 }
 
-body> .el-container{
+body > .el-container {
   margin-bottom: 0;
 }
 
-
 .el-main {
-  background-color:white;
+  background-color: white;
   color: #333;
   height: 800px;
 }

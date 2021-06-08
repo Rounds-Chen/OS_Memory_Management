@@ -31,7 +31,8 @@
     width: 400px;
     position:absolute;
     top:200px;
-    left:4%
+    left:4%;
+    background-color: #f3f9f1 ;
   }
 </style>
 

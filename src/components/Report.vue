@@ -1,5 +1,5 @@
 <template>
-<el-card shadow="hover" class="box-card">
+<el-card id="report" >
   <div  class="title">
       FIFO:
   </div>
@@ -21,7 +21,7 @@
 </el-card>    
 </template>
 
-<style>
+<style >
 
   .title{
       padding-top: 30px;
@@ -37,11 +37,13 @@
     padding: 10px 40px;
   }
 
-  .box-card {
+  #report {
     width: 400px;
     position:absolute;
     top:500px;
-    left:4%
+    left:4%;
+    background-color: #f3f9f1 ;
+
   }
 </style>
 

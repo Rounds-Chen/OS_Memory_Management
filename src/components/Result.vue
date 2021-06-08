@@ -19,15 +19,16 @@
       </el-table-column>
       <el-table-column align="center" prop="page4" label="Page 4" width="100">
       </el-table-column>
-      <el-table-column align="center" prop="detail" label="Page Fault" width="180">
+      <el-table-column align="center" prop="detail" label="Detail" width="150">
       </el-table-column>
-      <el-table-column align="center" prop="addr" label="Addr" width="100"> </el-table-column>
+      <el-table-column align="center" prop="addr" label="Address" width="200"> </el-table-column>
     </el-table>
 </template>
 
 <style scoped>
 #result {
   margin-top:20px;
+ 
 }
 
 .my-row{
@@ -72,7 +73,7 @@ export default {
          'text-align':'center'
       };
       let faultJson={
-        'background-color':'#e4f8d9',
+        'background-color':'#e9f1f6',
          'font-weight':500,
          'color':'black',
 
@@ -86,13 +87,13 @@ export default {
       }
     },
     tableHeaderStyle(){
-      return "text-align:center;background-color:#abebd5;color:rgb(77, 75, 75);font-weight:500;font-size:20 !important;"
+      return "text-align:center;background-color:#c0ebd7;color:rgb(77, 75, 75);font-weight:600;font-size:20 !important;"
     }, 
     
     //重置组件数据
     reset(){
       this.tableData='';
-      this.pages=[-1,-1,-1,-1];
+      this.pages=['Empty','Empty','Empty','Empty'];
       this.m=-1;
       this.seq=0;
       this.count=0;
@@ -178,10 +179,10 @@ export default {
           this.count++; //缺页数增加
           let j=0;
           for (j= 0; j < 4; j++) {
-            if (this.pages[j] === -1) {
+            if (this.pages[j] === 'Empty') {
               this.pages[j] = m_page;
               detail =
-                "当前指令不在内存块中，将其所在块放入内存页" + String(j + 1);
+                "当前指令不在内存块"+"    "+"所在块调入Page" + String(j + 1);
               break;
             }}
              if(j===4) {
@@ -200,7 +201,7 @@ export default {
           page4: this.pages[3],
 
           detail: detail,
-          addr: String(m_page) + " " + String(m_offset),
+          addr: "Page "+String(m_page) +"   Offset " + String(m_offset),
 
           fault:fault      
         };
