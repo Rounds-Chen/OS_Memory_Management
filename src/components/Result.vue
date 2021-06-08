@@ -7,19 +7,19 @@
       :header-cell-style="tableHeaderStyle"
       :row-style="tableRowStyle"
     >
-      <el-table-column  align="center" prop="seq" label="Seq No" width="100" >
+      <el-table-column  align="center" prop="seq" label="Seq No" width="80" >
       </el-table-column>
-      <el-table-column align="center" prop="ins" label="Ins No" width="100">
+      <el-table-column align="center" prop="ins" label="Ins No" width="70">
       </el-table-column>
-      <el-table-column align="center" prop="page1" label="Page 1" width="100">
+      <el-table-column align="center" prop="page1" label="Page 1" width="70">
       </el-table-column>
-      <el-table-column align="center" prop="page2" label="Page 2" width="100">
+      <el-table-column align="center" prop="page2" label="Page 2" width="70">
       </el-table-column>
-      <el-table-column align="center" prop="page3" label="Page 3" width="100">
+      <el-table-column align="center" prop="page3" label="Page 3" width="70">
       </el-table-column>
-      <el-table-column align="center" prop="page4" label="Page 4" width="100">
+      <el-table-column align="center" prop="page4" label="Page 4" width="70">
       </el-table-column>
-      <el-table-column align="center" prop="detail" label="Detail" width="150">
+      <el-table-column align="center" prop="detail" label="Detail" width="110">
       </el-table-column>
       <el-table-column align="center" prop="addr" label="Address" width="200"> </el-table-column>
     </el-table>
@@ -215,8 +215,24 @@ export default {
         this.tableData.push(new_seq);
     },
 
-    //连续执行320条指令
+    //连续执行完指令
     RunAll(){
+      if(this.seq==320){
+const h = this.$createElement;
+        this.$message({
+          message: h("p", null, [
+            h(
+              "span",
+              { style: "color: black;font-weight:500;font-size:17px" },
+              "请先点击CLEAR！ "
+            ),
+          ]),
+          type: "warning",
+          duration: 2300,
+          center: true,
+        });
+      };
+
       while(this.seq!=320){
         this.solve();
       }

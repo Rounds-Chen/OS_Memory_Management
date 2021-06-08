@@ -28,7 +28,7 @@
   }
 
   .box-card {
-    width: 400px;
+    width: 320px;
     position:absolute;
     top:200px;
     left:4%;

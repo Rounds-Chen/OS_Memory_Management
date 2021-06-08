@@ -38,7 +38,7 @@
   }
 
   #report {
-    width: 400px;
+    width: 320px;
     position:absolute;
     top:500px;
     left:4%;

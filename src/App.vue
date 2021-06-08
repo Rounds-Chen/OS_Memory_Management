@@ -41,7 +41,7 @@
             position: absolute;
             left: 35%;
             top: 300px;
-            width: 1000px;
+            width: 800px;
             height: 600px;
           "
         >
@@ -124,8 +124,8 @@ export default {
       this.oneStep=false;
       this.isRun = false;
       this.selection = "";
-      this.fifo_fault = 0;
-      this.lru_fault = 0;
+      // this.fifo_fault = 0;
+      // this.lru_fault = 0;
 
       this.$refs.child_select.clear();
       this.$refs.child_result.reset();
@@ -153,6 +153,21 @@ export default {
         this.oneStep=true;
         if(this.$refs.child_result.seq!=320){
           this.$refs.child_result.solve();
+        }
+        else{
+          const h = this.$createElement;
+        this.$message({
+          message: h("p", null, [
+            h(
+              "span",
+              { style: "color: black;font-weight:500;font-size:17px" },
+              "请先点击CLEAR!"
+            ),
+          ]),
+          type: "warning",
+          duration: 2300,
+          center: true,
+        });
         }
       }
       }
@@ -186,6 +201,8 @@ export default {
       } else {
         this.lru_fault = count;
       }
+
+      this.oneStep=false;
         const h = this.$createElement;
 
       this.$message({
