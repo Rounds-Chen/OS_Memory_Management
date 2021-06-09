@@ -18,7 +18,11 @@
 
 ## 运行方式
 
+* 在线运行
+  https://rounds-chen.github.io/OS_Memory_Management/#/
 
+* 本地运行
+  切换到`gh`分支，`clone`到本地，浏览器打开`index.html`
 
 
 
