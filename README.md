@@ -71,33 +71,33 @@
 
 ### 初始页面
 
-<img src="C:\Users\round\Documents\VueProjects\memorymanagement\display\初始页面 .png" alt="初始页面 " style="zoom:67%;" />
+<img src=".\display\初始页面 .png" alt="初始页面 " style="zoom:67%;" />
 
 
 
 ### 算法选择
 
-<img src="C:\Users\round\Documents\VueProjects\memorymanagement\display\选择算法.png" alt="选择算法" style="zoom:67%;" />
+<img src=".\display\选择算法.png" alt="选择算法" style="zoom:67%;" />
 
 
 
 ### 警告
 
-<img src="C:\Users\round\Documents\VueProjects\memorymanagement\display\警告.png" alt="警告" style="zoom:67%;" />
+<img src=".\display\警告.png" alt="警告" style="zoom:67%;" />
 
-<img src="C:\Users\round\Documents\VueProjects\memorymanagement\display\警告2.png" alt="警告2" style="zoom:67%;" />
+<img src=".\display\警告2.png" alt="警告2" style="zoom:67%;" />
 
 
 
 ### 结果展示
 
-<img src="C:\Users\round\Documents\VueProjects\memorymanagement\display\结果显示.png" alt="结果显示" style="zoom:67%;" />
+<img src=".\display\结果显示.png" alt="结果显示" style="zoom:67%;" />
 
 
 
 ### 结果对比
 
-<img src="C:\Users\round\Documents\VueProjects\memorymanagement\display\结果对比.png" alt="结果对比" style="zoom:50%;" />
+<img src=".\display\结果对比.png" alt="结果对比" style="zoom:50%;" />
 
 
 
