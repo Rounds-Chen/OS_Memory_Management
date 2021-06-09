@@ -59,7 +59,7 @@
         <Report :fifo_fault="fifo_fault" :lru_fault="lru_fault" />
       </el-main>
       <el-footer class="my-footer">
-        <el-link :underline="false" href="https://element.eleme.io" target="_blank">
+        <el-link :underline="false" href="https://github.com/Rounds-Chen" target="_blank">
         <img style="margin-top:15px" src="./assets/GitHub.png">
         </el-link></el-footer>
     </el-container>
